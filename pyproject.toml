@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pynative-apps"
+version = "0.1.0"
+description = "Python Cloud Native Microservice Application"
+authors = ["Mohamed Luqman"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+flask = "^3.1.0"
+pytest = "^8.3.4"
+alembic = "^1.14.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.3.2"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+black = "^24.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
