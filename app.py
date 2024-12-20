@@ -1,8 +1,26 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
+from flasgger import Swagger
+
 from models.sqlite_sql import Database, DATABASE
+from api.v1.users import user_app
+from api.v1.ads import ad_app
+
 
 
 app = Flask(__name__)
+
+swagger = Swagger(app, template={
+    "info": {
+        "title": "Pynative Flask API",
+        "description": "An example API using Flask and Swagger",
+        "version": "1.0.0"
+    }
+})
+
+
+
+app.register_blueprint(user_app)
+app.register_blueprint(ad_app)
 
 
 @app.route("/")
@@ -21,6 +39,10 @@ def get_version_v1():
         version_info = cursor_rec.fetchall()
     return jsonify({"version_info": version_info}), 200
 
+
+@app.errorhandler(404)
+def resource_not_found(error):
+    return make_response(jsonify({"error": "Resource not found!"}), 404)
 
 
 if __name__ == "__main__":
